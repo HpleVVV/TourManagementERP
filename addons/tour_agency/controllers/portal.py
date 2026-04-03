@@ -29,7 +29,7 @@ class TourPortal(CustomerPortal):
         return values
     
     # Tour Bookings
-    @http.route(['/my/bookings', '/my/bookings/page/<int:page>'], type='http', auth='public', website=True)
+    @http.route(['/my/bookings', '/my/bookings/page/<int:page>'], type='http', auth='user', website=True)
     def portal_my_bookings(self, page=1, date_begin=None, date_end=None, sortby=None, filterby=None, **kw):
         """Display customer bookings"""
         values = self._prepare_portal_layout_values()
@@ -96,7 +96,7 @@ class TourPortal(CustomerPortal):
         
         return request.render('tour_agency.portal_my_bookings', values)
     
-    @http.route(['/my/bookings/<int:booking_id>'], type='http', auth='public', website=True)
+    @http.route(['/my/bookings/<int:booking_id>'], type='http', auth='user', website=True)
     def portal_my_booking_detail(self, booking_id, access_token=None, **kw):
         """Display booking details"""
         try:
@@ -124,7 +124,7 @@ class TourPortal(CustomerPortal):
         
         return self._get_page_view_values(booking, access_token, values, 'my_bookings_history', False, **kwargs)
     
-    @http.route(['/my/bookings/<int:booking_id>/cancel'], type='http', auth='public', website=True, methods=['POST'])
+    @http.route(['/my/bookings/<int:booking_id>/cancel'], type='http', auth='user', website=True, methods=['POST'])
     def portal_my_booking_cancel(self, booking_id, **kw):
         """Cancel booking from portal"""
         try:
@@ -139,7 +139,7 @@ class TourPortal(CustomerPortal):
         return request.redirect(f'/my/bookings/{booking_id}')
     
     # Tour Inquiries
-    @http.route(['/my/inquiries', '/my/inquiries/page/<int:page>'], type='http', auth='public', website=True)
+    @http.route(['/my/inquiries', '/my/inquiries/page/<int:page>'], type='http', auth='user', website=True)
     def portal_my_inquiries(self, page=1, date_begin=None, date_end=None, sortby=None, filterby=None, **kw):
         """Display customer inquiries"""
         values = self._prepare_portal_layout_values()
@@ -199,7 +199,7 @@ class TourPortal(CustomerPortal):
         
         return request.render('tour_agency.portal_my_inquiries', values)
     
-    @http.route(['/my/inquiries/<int:inquiry_id>'], type='http', auth='public', website=True)
+    @http.route(['/my/inquiries/<int:inquiry_id>'], type='http', auth='user', website=True)
     def portal_my_inquiry_detail(self, inquiry_id, **kw):
         """Display inquiry details"""
         try:
