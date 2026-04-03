@@ -163,11 +163,13 @@ class WebsiteTourAgency(http.Controller):
                 'error': str(e)
             })
     
-    @http.route(['/tour/booking/<model("tour.package"):package>'], type='http', auth='user', website=True)
+    @http.route(['/tour/booking/<model("tour.package"):package>'], type='http', auth='public', website=True)
     def tour_booking_page(self, package, **kwargs):
         """Display booking form page"""
         
-        partner = request.env.user.partner_id
+        partner = False
+        if not request.env.user._is_public():
+            partner = request.env.user.partner_id
         
         values = {
             'package': package,
@@ -180,7 +182,7 @@ class WebsiteTourAgency(http.Controller):
         
         return request.render('tour_agency.tour_booking_page', values)
     
-    @http.route(['/tour/booking/submit'], type='http', auth='user', website=True, methods=['POST'], csrf=True)
+    @http.route(['/tour/booking/submit'], type='http', auth='public', website=True, methods=['POST'], csrf=True)
     def tour_booking_submit(self, **post):
         """Submit booking form"""
         
@@ -192,7 +194,21 @@ class WebsiteTourAgency(http.Controller):
             if not package.exists():
                 return request.render('website.404')
             
-            partner = request.env.user.partner_id
+            if request.env.user._is_public():
+                customer_name = post.get('customer_name')
+                customer_email = post.get('customer_email')
+                customer_phone = post.get('customer_phone')
+                if not customer_name or not customer_email:
+                    raise ValueError('Name and email are required for guest booking.')
+                partner = request.env['res.partner'].sudo().search([('email', '=', customer_email)], limit=1)
+                if not partner:
+                    partner = request.env['res.partner'].sudo().create({
+                        'name': customer_name,
+                        'email': customer_email,
+                        'phone': customer_phone,
+                    })
+            else:
+                partner = request.env.user.partner_id
             
             # Create booking
             booking_vals = {
