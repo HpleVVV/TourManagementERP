@@ -235,7 +235,7 @@ class WebsiteTourAgency(http.Controller):
                 'package': package,
             })
     
-    @http.route(['/tour/booking/<int:booking_id>/confirm'], type='http', auth='user', website=True, methods=['POST'], csrf=True)
+    @http.route(['/tour/booking/<int:booking_id>/confirm'], type='http', auth='public', website=True, methods=['POST'], csrf=True)
     def tour_booking_confirm(self, booking_id, **post):
         """Confirm booking"""
         
@@ -249,7 +249,7 @@ class WebsiteTourAgency(http.Controller):
         
         return request.redirect(f'/my/bookings/{booking.id}?message=confirmed')
     
-    @http.route(['/tour/booking/<int:booking_id>/cancel'], type='http', auth='user', website=True, methods=['POST'], csrf=True)
+    @http.route(['/tour/booking/<int:booking_id>/cancel'], type='http', auth='public', website=True, methods=['POST'], csrf=True)
     def tour_booking_cancel(self, booking_id, **post):
         """Cancel booking from website"""
         
@@ -263,7 +263,7 @@ class WebsiteTourAgency(http.Controller):
         
         return request.redirect(f'/my/bookings/{booking.id}?message=cancelled')
     
-    @http.route(['/tour/booking/<int:booking_id>/pay'], type='http', auth='user', website=True)
+    @http.route(['/tour/booking/<int:booking_id>/pay'], type='http', auth='public', website=True)
     def tour_booking_pay(self, booking_id, **post):
         """Redirect to payment for booking"""
         
