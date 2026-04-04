@@ -70,23 +70,27 @@
                         </t>
                         
                         <div class="row mt-4">
-                            <div class="col-6">
-                                <h5>Inclusions</h5>
-                                <ul t-if="o.inclusion_ids">
-                                    <t t-foreach="o.inclusion_ids" t-as="inclusion">
-                                        <li t-field="inclusion.name"/>
-                                    </t>
-                                </ul>
-                            </div>
-                            <div class="col-6">
-                                <h5>Exclusions</h5>
-                                <ul t-if="o.exclusion_ids">
-                                    <t t-foreach="o.exclusion_ids" t-as="exclusion">
-                                        <li t-field="exclusion.name"/>
-                                    </t>
-                                </ul>
-                            </div>
-                        </div>
+    <div class="col-6">
+        <h5>Inclusions</h5>
+        <ul t-if="o.inclusion_ids">
+            <t t-foreach="o.inclusion_ids" t-as="inclusion">
+                <li>
+                    <span t-esc="inclusion.name"/>
+                </li>
+            </t>
+        </ul>
+    </div>
+    <div class="col-6">
+        <h5>Exclusions</h5>
+        <ul t-if="o.exclusion_ids">
+            <t t-foreach="o.exclusion_ids" t-as="exclusion">
+                <li>
+                    <span t-esc="exclusion.name"/>
+                </li>
+            </t>
+        </ul>
+    </div>
+</div>
                         
                         <div class="oe_structure"/>
                     </div>
