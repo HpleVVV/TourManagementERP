@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <function model="tour.booking" name="_tbm_sync_existing_groups"/>
+</odoo>

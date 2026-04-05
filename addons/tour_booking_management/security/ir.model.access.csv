@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_tour_booking_user_tbm,tour.booking.user.tbm,model_tour_booking,base.group_user,1,1,1,1
+access_tour_booking_group_user_tbm,tour.booking.group.user.tbm,model_tour_booking_group,base.group_user,1,0,0,0
+access_tour_booking_line_user_tbm,tour.booking.line.user.tbm,model_tour_booking_line,base.group_user,1,0,0,0

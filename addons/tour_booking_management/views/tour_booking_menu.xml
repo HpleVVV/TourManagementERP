@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_tour_management_root_tbm" name="Tour Management" sequence="15"/>
+
+    <menuitem
+        id="menu_tour_booking_tbm"
+        name="Booking Groups"
+        parent="menu_tour_management_root_tbm"
+        action="action_tour_booking_tbm"
+        sequence="10"
+    />
+
+</odoo>
